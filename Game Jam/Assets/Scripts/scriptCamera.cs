@@ -6,7 +6,7 @@ public class scriptCamera : MonoBehaviour
 {
     //MainCharacter � o meu personagem principal estou fazendo uma refer�ncia ele aqui para camera o seguir
     public GameObject MainCharacter;
-    //Posi��o da c�mera para o personagem principal
+    //Posi��o da c�mera para o personagem principal é só alterar o offsetY
     private float offsetY = 1;
     // Start is called before the first frame update
     void Start()
