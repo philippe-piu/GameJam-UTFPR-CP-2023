@@ -7,13 +7,16 @@ using UnityEngine.UI;
 
 public class scriptMainCharacter : MonoBehaviour
 {
+    public const int defautJump = 1;
+    private float jumpCount = defautJump;
     private Rigidbody2D rbd;
     private Animator anim;
     public GameObject pe;
     public float velocidade = 3;
     public float distancia = 0.2f;
     private bool direita = true;
-    private float jumpForce = 500;
+    private int jumpForce = 500;
+
     public LayerMask mascara;
     public LayerMask maskEnemy;
     private float x;
@@ -50,20 +53,29 @@ public class scriptMainCharacter : MonoBehaviour
         }
     }
 
-  
+
 
     private void pular()
     {
         //Pular
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (hit.collider != null)
-                rbd.AddForce(new Vector2(0, jumpForce));
 
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount > 0)
+        {
+            rbd.AddForce(new Vector2(0, jumpForce));
+            jumpCount--;
 
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    { 
+        if (collision.gameObject.CompareTag("floor"))
+        {
+            jumpCount = defautJump;
+        }
 
+            
+    }
+        
 
     // Update is called once per frame
     void Update()
