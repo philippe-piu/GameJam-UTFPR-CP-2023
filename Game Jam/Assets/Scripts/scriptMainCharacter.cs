@@ -10,6 +10,10 @@ public class scriptMainCharacter : MonoBehaviour
     
     public const int defautJump = 1;
     private float jumpCount = defautJump;
+
+    public const int defautAtk = 1;
+    private float atkCount = defautAtk;
+
     private Rigidbody2D rbd;
     private Animator anim;
     public GameObject pe;
@@ -34,6 +38,7 @@ public class scriptMainCharacter : MonoBehaviour
     {
         rbd = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        
 
     }
 
@@ -57,9 +62,11 @@ public class scriptMainCharacter : MonoBehaviour
 
     private void anima()
     {
+        
         /*Animação para se mover*/
         if (x == 0)
             anim.SetBool("parar", true);
+
         else
             anim.SetBool("parar", false);
     }
@@ -77,7 +84,20 @@ public class scriptMainCharacter : MonoBehaviour
             anim.SetBool("pulo", true);
         }
     }
+    /*
+    private void animaAtaque()
+    {
+        if (atkCount > 0)
+        {
+            anim.SetTrigger
 
+        }
+        else if(atkCount == 0)
+        {
+            anim.SetBool("atacar", true);
+        }
+    }
+    */
     private void pular()
     {
         //Pular
@@ -91,25 +111,41 @@ public class scriptMainCharacter : MonoBehaviour
         
      
     }
+    private void atacar()
+    {
+        //Pular
+
+        if (Input.GetKeyDown(KeyCode.Z) )
+        {
+            anim.SetTrigger("atacar");
+            atkCount--;
+        }
+
+
+
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     { 
         if (collision.gameObject.CompareTag("floor"))
         {
             jumpCount = defautJump;
+
+
         }
 
             
     }
-        
-
+  
     // Update is called once per frame
     void Update()
     {
         mover();
         anima();
         animaPulo();
+        //animaAtaque();
        // pisarPlataformaSemMover();
         pular();
+        atacar();
         //eleminarInimigo();
 
 
