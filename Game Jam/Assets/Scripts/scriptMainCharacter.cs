@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class scriptMainCharacter : MonoBehaviour
 {
+    
     public const int defautJump = 1;
     private float jumpCount = defautJump;
     private Rigidbody2D rbd;
@@ -20,6 +21,7 @@ public class scriptMainCharacter : MonoBehaviour
     public LayerMask mascara;
     public LayerMask maskEnemy;
     private float x;
+  
     RaycastHit2D hit;
     RaycastHit2D hitEnemy;
 
@@ -53,7 +55,28 @@ public class scriptMainCharacter : MonoBehaviour
         }
     }
 
+    private void anima()
+    {
+        /*Animação para se mover*/
+        if (x == 0)
+            anim.SetBool("parar", true);
+        else
+            anim.SetBool("parar", false);
+    }
 
+    private void animaPulo()
+    {
+        
+        if (jumpCount > 0)
+        {
+            anim.SetBool("pulo", false);
+
+        }
+        else
+        {
+            anim.SetBool("pulo", true);
+        }
+    }
 
     private void pular()
     {
@@ -61,10 +84,12 @@ public class scriptMainCharacter : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount > 0)
         {
-            rbd.AddForce(new Vector2(0, jumpForce));
+            rbd.AddForce(new Vector2(0, jumpForce));      
             jumpCount--;
-
         }
+
+        
+     
     }
     private void OnCollisionEnter2D(Collision2D collision)
     { 
@@ -81,7 +106,8 @@ public class scriptMainCharacter : MonoBehaviour
     void Update()
     {
         mover();
-        //anima();
+        anima();
+        animaPulo();
        // pisarPlataformaSemMover();
         pular();
         //eleminarInimigo();
