@@ -23,7 +23,7 @@ public class scriptMainCharacter : MonoBehaviour
     private int jumpForce = 500;
 
     public LayerMask mascara;
-    public LayerMask maskEnemy;
+    public LayerMask inimigo;
     private float x;
   
     RaycastHit2D hit;
@@ -32,6 +32,12 @@ public class scriptMainCharacter : MonoBehaviour
     private bool floor;
     //Pausar o jogo
     private bool pausado = false;
+
+    public Transform atkCheck;
+    public float radiusAtk = 5;
+    public LayerMask layerEnemy;
+    float timeNextAtk;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +60,7 @@ public class scriptMainCharacter : MonoBehaviour
         /*andar para esquerda*/
         if (direita && x < 0 || !direita && x > 0)
         {
+            
             /*0 Posição X e 180 Posição Y*/
             transform.Rotate(new Vector2(0, 180));
             direita = !direita;
@@ -77,27 +84,16 @@ public class scriptMainCharacter : MonoBehaviour
         if (jumpCount > 0)
         {
             anim.SetBool("pulo", false);
+            Debug.Log(jumpCount);
 
         }
         else
         {
             anim.SetBool("pulo", true);
+            Debug.Log(jumpCount);
         }
     }
-    /*
-    private void animaAtaque()
-    {
-        if (atkCount > 0)
-        {
-            anim.SetTrigger
-
-        }
-        else if(atkCount == 0)
-        {
-            anim.SetBool("atacar", true);
-        }
-    }
-    */
+   
     private void pular()
     {
         //Pular
@@ -119,13 +115,15 @@ public class scriptMainCharacter : MonoBehaviour
         {
             anim.SetTrigger("atacar");
             atkCount--;
+
+          
         }
 
-
+        
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
-    { 
+    {
         if (collision.gameObject.CompareTag("floor"))
         {
             jumpCount = defautJump;
@@ -133,20 +131,24 @@ public class scriptMainCharacter : MonoBehaviour
 
         }
 
-            
+        
+
     }
-  
+
+   
+
+
     // Update is called once per frame
     void Update()
     {
         mover();
         anima();
         animaPulo();
-        //animaAtaque();
+        //OnDrawGizmosSelected();
        // pisarPlataformaSemMover();
         pular();
         atacar();
-        //eleminarInimigo();
+        
 
 
 

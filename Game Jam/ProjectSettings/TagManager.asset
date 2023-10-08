@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - floor
+  - inimigo
+  - atkCheck
   layers:
   - Default
   - TransparentFX
